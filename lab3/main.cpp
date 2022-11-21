@@ -1,4 +1,4 @@
-// Імпортуємро потрібна бібліотеки
+// Р†РјРїРѕСЂС‚СѓС”РјСЂРѕ РїРѕС‚СЂС–Р±РЅР° Р±С–Р±Р»С–РѕС‚РµРєРё
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
@@ -19,27 +19,27 @@
 
 
 
-// Для зручності виносимо жорсткі значення в константи (це розміри вікна і кількості кадрів)
+// Р”Р»СЏ Р·СЂСѓС‡РЅРѕСЃС‚С– РІРёРЅРѕСЃРёРјРѕ Р¶РѕСЂСЃС‚РєС– Р·РЅР°С‡РµРЅРЅСЏ РІ РєРѕРЅСЃС‚Р°РЅС‚Рё (С†Рµ СЂРѕР·РјС–СЂРё РІС–РєРЅР° С– РєС–Р»СЊРєРѕСЃС‚С– РєР°РґСЂС–РІ)
 
 const uint32_t WIDTH = 800;
 const uint32_t HEIGHT = 600;
 
 const int MAX_FRAMES_IN_FLIGHT = 2;
 
-// Вмикаємо потрібні шари валідації
+// Р’РјРёРєР°С”РјРѕ РїРѕС‚СЂС–Р±РЅС– С€Р°СЂРё РІР°Р»С–РґР°С†С–С—
 
 const std::vector<const char*> validationLayers = {
     "VK_LAYER_KHRONOS_validation"
 };
 
-// Оголошуємо розширення які необхідні присрою для роботи
+// РћРіРѕР»РѕС€СѓС”РјРѕ СЂРѕР·С€РёСЂРµРЅРЅСЏ СЏРєС– РЅРµРѕР±С…С–РґРЅС– РїСЂРёСЃСЂРѕСЋ РґР»СЏ СЂРѕР±РѕС‚Рё
 
 const std::vector<const char*> deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
 
 
-// Вимикаємо перевірку шарів валідації у релізі
+// Р’РёРјРёРєР°С”РјРѕ РїРµСЂРµРІС–СЂРєСѓ С€Р°СЂС–РІ РІР°Р»С–РґР°С†С–С— Сѓ СЂРµР»С–Р·С–
 
 #ifdef NDEBUG
 const bool enableValidationLayers = false;
@@ -47,7 +47,7 @@ const bool enableValidationLayers = false;
 const bool enableValidationLayers = true;
 #endif
 
-// Функціястворення обєекта для повідомлень рівня перевірки
+// Р¤СѓРЅРєС†С–СЏСЃС‚РІРѕСЂРµРЅРЅСЏ РѕР±С”РµРєС‚Р° РґР»СЏ РїРѕРІС–РґРѕРјР»РµРЅСЊ СЂС–РІРЅСЏ РїРµСЂРµРІС–СЂРєРё
 
 VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger) {
     auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
@@ -59,7 +59,7 @@ VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMes
     }
 }
 
-// Очищаємо обєкт для повідомлень
+// РћС‡РёС‰Р°С”РјРѕ РѕР±С”РєС‚ РґР»СЏ РїРѕРІС–РґРѕРјР»РµРЅСЊ
 
 void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator) {
     auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
@@ -68,7 +68,7 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT
     }
 }
 
-// Структура для перевірки які сімейтва черг підтримуються пристроєм
+// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ РїРµСЂРµРІС–СЂРєРё СЏРєС– СЃС–РјРµР№С‚РІР° С‡РµСЂРі РїС–РґС‚СЂРёРјСѓСЋС‚СЊСЃСЏ РїСЂРёСЃС‚СЂРѕС”Рј
 
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
@@ -79,7 +79,7 @@ struct QueueFamilyIndices {
     }
 };
 
-// Структура для перевірки вдастивостей пристоя
+// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ РїРµСЂРµРІС–СЂРєРё РІРґР°СЃС‚РёРІРѕСЃС‚РµР№ РїСЂРёСЃС‚РѕСЏ
 
 struct SwapChainSupportDetails {
     VkSurfaceCapabilitiesKHR capabilities;
@@ -87,11 +87,11 @@ struct SwapChainSupportDetails {
     std::vector<VkPresentModeKHR> presentModes;
 };
 
-// Клас, який буде відмалбовувати трикутний
+// РљР»Р°СЃ, СЏРєРёР№ Р±СѓРґРµ РІС–РґРјР°Р»Р±РѕРІСѓРІР°С‚Рё С‚СЂРёРєСѓС‚РЅРёР№
 
 class HelloTriangleApplication {
 
-    // Метод який буде відмалбовувати створений трикутник
+    // РњРµС‚РѕРґ СЏРєРёР№ Р±СѓРґРµ РІС–РґРјР°Р»Р±РѕРІСѓРІР°С‚Рё СЃС‚РІРѕСЂРµРЅРёР№ С‚СЂРёРєСѓС‚РЅРёРє
 public:
     void run() {
         initWindow();
@@ -102,7 +102,7 @@ public:
 
 private:
 
-    // Створення приватних змінних, які будуть визначати характеристики трикутнгика
+    // РЎС‚РІРѕСЂРµРЅРЅСЏ РїСЂРёРІР°С‚РЅРёС… Р·РјС–РЅРЅРёС…, СЏРєС– Р±СѓРґСѓС‚СЊ РІРёР·РЅР°С‡Р°С‚Рё С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєРё С‚СЂРёРєСѓС‚РЅРіРёРєР°
     GLFWwindow* window;
 
     VkInstance instance;
@@ -133,7 +133,7 @@ private:
     VkSemaphore renderFinishedSemaphore;
     VkFence inFlightFence;
 
-    // Створення вікна для відображення трикутника
+    // РЎС‚РІРѕСЂРµРЅРЅСЏ РІС–РєРЅР° РґР»СЏ РІС–РґРѕР±СЂР°Р¶РµРЅРЅСЏ С‚СЂРёРєСѓС‚РЅРёРєР°
 
     void initWindow() {
         glfwInit();
@@ -144,7 +144,7 @@ private:
         window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
     }
 
-    // Метод для ініціалізації усіх даних, які потрібні Vulkan для відображення
+    // РњРµС‚РѕРґ РґР»СЏ С–РЅС–С†С–Р°Р»С–Р·Р°С†С–С— СѓСЃС–С… РґР°РЅРёС…, СЏРєС– РїРѕС‚СЂС–Р±РЅС– Vulkan РґР»СЏ РІС–РґРѕР±СЂР°Р¶РµРЅРЅСЏ
 
     void initVulkan() {
         createInstance();
@@ -162,7 +162,7 @@ private:
         createSyncObjects();
     }
 
-    // Метод який буде постійно відмальовувати зображення у вікні
+    // РњРµС‚РѕРґ СЏРєРёР№ Р±СѓРґРµ РїРѕСЃС‚С–Р№РЅРѕ РІС–РґРјР°Р»СЊРѕРІСѓРІР°С‚Рё Р·РѕР±СЂР°Р¶РµРЅРЅСЏ Сѓ РІС–РєРЅС–
 
     void mainLoop() {
         while (!glfwWindowShouldClose(window)) {
@@ -173,7 +173,7 @@ private:
         vkDeviceWaitIdle(device);
     }
 
-    // Функція очищення, яка звільняє ресурси, які були використані в ході програми
+    // Р¤СѓРЅРєС†С–СЏ РѕС‡РёС‰РµРЅРЅСЏ, СЏРєР° Р·РІС–Р»СЊРЅСЏС” СЂРµСЃСѓСЂСЃРё, СЏРєС– Р±СѓР»Рё РІРёРєРѕСЂРёСЃС‚Р°РЅС– РІ С…РѕРґС– РїСЂРѕРіСЂР°РјРё
 
     void cleanup() {
         vkDestroySemaphore(device, renderFinishedSemaphore, nullptr);
@@ -209,7 +209,7 @@ private:
         glfwTerminate();
     }
 
-    // Функцшія для створення екземпляру Vulkan, через який і буде програма звертатись до засобів у біблотеці
+    // Р¤СѓРЅРєС†С€С–СЏ РґР»СЏ СЃС‚РІРѕСЂРµРЅРЅСЏ РµРєР·РµРјРїР»СЏСЂСѓ Vulkan, С‡РµСЂРµР· СЏРєРёР№ С– Р±СѓРґРµ РїСЂРѕРіСЂР°РјР° Р·РІРµСЂС‚Р°С‚РёСЃСЊ РґРѕ Р·Р°СЃРѕР±С–РІ Сѓ Р±С–Р±Р»РѕС‚РµС†С–
 
     void createInstance() {
         if (enableValidationLayers && !checkValidationLayerSupport()) {
@@ -251,7 +251,7 @@ private:
         }
     }
 
-    // Функція для форматування повідомлення
+    // Р¤СѓРЅРєС†С–СЏ РґР»СЏ С„РѕСЂРјР°С‚СѓРІР°РЅРЅСЏ РїРѕРІС–РґРѕРјР»РµРЅРЅСЏ
 
     void populateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo) {
         createInfo = {};
@@ -261,7 +261,7 @@ private:
         createInfo.pfnUserCallback = debugCallback;
     }
 
-    // Функція яка створює меседжеер для відладки
+    // Р¤СѓРЅРєС†С–СЏ СЏРєР° СЃС‚РІРѕСЂСЋС” РјРµСЃРµРґР¶РµРµСЂ РґР»СЏ РІС–РґР»Р°РґРєРё
 
     void setupDebugMessenger() {
         if (!enableValidationLayers) return;
@@ -274,7 +274,7 @@ private:
         }
     }
 
-    // Функція яка створює робочу поверхню у вікні
+    // Р¤СѓРЅРєС†С–СЏ СЏРєР° СЃС‚РІРѕСЂСЋС” СЂРѕР±РѕС‡Сѓ РїРѕРІРµСЂС…РЅСЋ Сѓ РІС–РєРЅС–
 
     void createSurface() {
         if (glfwCreateWindowSurface(instance, window, nullptr, &surface) != VK_SUCCESS) {
@@ -282,7 +282,7 @@ private:
         }
     }
 
-    // Функція для вибору GPU яке буде підходити для програми
+    // Р¤СѓРЅРєС†С–СЏ РґР»СЏ РІРёР±РѕСЂСѓ GPU СЏРєРµ Р±СѓРґРµ РїС–РґС…РѕРґРёС‚Рё РґР»СЏ РїСЂРѕРіСЂР°РјРё
 
     void pickPhysicalDevice() {
         uint32_t deviceCount = 0;
@@ -307,7 +307,7 @@ private:
         }
     }
 
-    // Функція яка створює звязок між програмою і GPU
+    // Р¤СѓРЅРєС†С–СЏ СЏРєР° СЃС‚РІРѕСЂСЋС” Р·РІСЏР·РѕРє РјС–Р¶ РїСЂРѕРіСЂР°РјРѕСЋ С– GPU
 
     void createLogicalDevice() {
         QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
@@ -354,7 +354,7 @@ private:
         vkGetDeviceQueue(device, indices.presentFamily.value(), 0, &presentQueue);
     }
 
-    // Функція для створення ланцюжка обміну
+    // Р¤СѓРЅРєС†С–СЏ РґР»СЏ СЃС‚РІРѕСЂРµРЅРЅСЏ Р»Р°РЅС†СЋР¶РєР° РѕР±РјС–РЅСѓ
 
     void createSwapChain() {
         SwapChainSupportDetails swapChainSupport = querySwapChainSupport(physicalDevice);
@@ -363,7 +363,7 @@ private:
         VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
         VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities);
 
-        uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1; // запитуємо потрібно нам кількість зображень (мінімум 1)
+        uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1; // Р·Р°РїРёС‚СѓС”РјРѕ РїРѕС‚СЂС–Р±РЅРѕ РЅР°Рј РєС–Р»СЊРєС–СЃС‚СЊ Р·РѕР±СЂР°Р¶РµРЅСЊ (РјС–РЅС–РјСѓРј 1)
         if (swapChainSupport.capabilities.maxImageCount > 0 && imageCount > swapChainSupport.capabilities.maxImageCount) {
             imageCount = swapChainSupport.capabilities.maxImageCount;
         }
@@ -382,7 +382,7 @@ private:
         QueueFamilyIndices indices = findQueueFamilies(physicalDevice);
         uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
 
-        // Визначаємо спосі бобробки зображення
+        // Р’РёР·РЅР°С‡Р°С”РјРѕ СЃРїРѕСЃС– Р±РѕР±СЂРѕР±РєРё Р·РѕР±СЂР°Р¶РµРЅРЅСЏ
 
         if (indices.graphicsFamily != indices.presentFamily) {
             createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
@@ -404,7 +404,7 @@ private:
             throw std::runtime_error("failed to create swap chain!");
         }
 
-        // Збереження даних про маркери
+        // Р—Р±РµСЂРµР¶РµРЅРЅСЏ РґР°РЅРёС… РїСЂРѕ РјР°СЂРєРµСЂРё
 
         vkGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr);
         swapChainImages.resize(imageCount);
@@ -414,7 +414,7 @@ private:
         swapChainExtent = extent;
     }
 
-    // Функція для отримання доступу до зобпвження
+    // Р¤СѓРЅРєС†С–СЏ РґР»СЏ РѕС‚СЂРёРјР°РЅРЅСЏ РґРѕСЃС‚СѓРїСѓ РґРѕ Р·РѕР±РїРІР¶РµРЅРЅСЏ
 
     void createImageViews() {
         swapChainImageViews.resize(swapChainImages.size());
@@ -441,7 +441,7 @@ private:
         }
     }
 
-    // Функція яка повідомля про інформацію з кадрового буфера
+    // Р¤СѓРЅРєС†С–СЏ СЏРєР° РїРѕРІС–РґРѕРјР»СЏ РїСЂРѕ С–РЅС„РѕСЂРјР°С†С–СЋ Р· РєР°РґСЂРѕРІРѕРіРѕ Р±СѓС„РµСЂР°
 
     void createRenderPass() {
         VkAttachmentDescription colorAttachment{};
@@ -485,7 +485,7 @@ private:
         }
     }
 
-    // Функція для відпровацювання потрібних етапів для обробки зображення
+    // Р¤СѓРЅРєС†С–СЏ РґР»СЏ РІС–РґРїСЂРѕРІР°С†СЋРІР°РЅРЅСЏ РїРѕС‚СЂС–Р±РЅРёС… РµС‚Р°РїС–РІ РґР»СЏ РѕР±СЂРѕР±РєРё Р·РѕР±СЂР°Р¶РµРЅРЅСЏ
 
     void createGraphicsPipeline() {
         auto vertShaderCode = readFile("shaders/vert.spv");
@@ -595,7 +595,7 @@ private:
         vkDestroyShaderModule(device, vertShaderModule, nullptr);
     }
 
-    // Функція для заповнення кадрового буферу
+    // Р¤СѓРЅРєС†С–СЏ РґР»СЏ Р·Р°РїРѕРІРЅРµРЅРЅСЏ РєР°РґСЂРѕРІРѕРіРѕ Р±СѓС„РµСЂСѓ
 
     void createFramebuffers() {
         swapChainFramebuffers.resize(swapChainImageViews.size());
@@ -620,7 +620,7 @@ private:
         }
     }
 
-    // Створення команд для командного буфера
+    // РЎС‚РІРѕСЂРµРЅРЅСЏ РєРѕРјР°РЅРґ РґР»СЏ РєРѕРјР°РЅРґРЅРѕРіРѕ Р±СѓС„РµСЂР°
 
     void createCommandPool() {
         QueueFamilyIndices queueFamilyIndices = findQueueFamilies(physicalDevice);
@@ -635,7 +635,7 @@ private:
         }
     }
 
-    // Свторення командного буфера
+    // РЎРІС‚РѕСЂРµРЅРЅСЏ РєРѕРјР°РЅРґРЅРѕРіРѕ Р±СѓС„РµСЂР°
 
     void createCommandBuffer() {
         VkCommandBufferAllocateInfo allocInfo{};
@@ -649,7 +649,7 @@ private:
         }
     }
 
-    // Запис команд у командний буфер
+    // Р—Р°РїРёСЃ РєРѕРјР°РЅРґ Сѓ РєРѕРјР°РЅРґРЅРёР№ Р±СѓС„РµСЂ
 
     void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex) {
         VkCommandBufferBeginInfo beginInfo{};
@@ -713,7 +713,7 @@ private:
 
     }
 
-    // Функція для розміщення трикутника на екрані
+    // Р¤СѓРЅРєС†С–СЏ РґР»СЏ СЂРѕР·РјС–С‰РµРЅРЅСЏ С‚СЂРёРєСѓС‚РЅРёРєР° РЅР° РµРєСЂР°РЅС–
 
     void drawFrame() {
         vkWaitForFences(device, 1, &inFlightFence, VK_TRUE, UINT64_MAX);
@@ -760,7 +760,7 @@ private:
         vkQueuePresentKHR(presentQueue, &presentInfo);
     }
 
-    // Додавання байт-кодів шейдерів
+    // Р”РѕРґР°РІР°РЅРЅСЏ Р±Р°Р№С‚-РєРѕРґС–РІ С€РµР№РґРµСЂС–РІ
 
     VkShaderModule createShaderModule(const std::vector<char>& code) {
         VkShaderModuleCreateInfo createInfo{};
@@ -796,7 +796,7 @@ private:
         return VK_PRESENT_MODE_FIFO_KHR;
     }
 
-    // Вибір роздільної здатності зображення
+    // Р’РёР±С–СЂ СЂРѕР·РґС–Р»СЊРЅРѕС— Р·РґР°С‚РЅРѕСЃС‚С– Р·РѕР±СЂР°Р¶РµРЅРЅСЏ
 
     VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) {
         if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
@@ -818,7 +818,7 @@ private:
         }
     }
 
-    // Запит для отриманння властивостей пристрою
+    // Р—Р°РїРёС‚ РґР»СЏ РѕС‚СЂРёРјР°РЅРЅРЅСЏ РІР»Р°СЃС‚РёРІРѕСЃС‚РµР№ РїСЂРёСЃС‚СЂРѕСЋ
 
     SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device) {
         SwapChainSupportDetails details;
@@ -874,7 +874,7 @@ private:
         return requiredExtensions.empty();
     }
 
-    // Вибір сімейства черг які підходять для програми
+    // Р’РёР±С–СЂ СЃС–РјРµР№СЃС‚РІР° С‡РµСЂРі СЏРєС– РїС–РґС…РѕРґСЏС‚СЊ РґР»СЏ РїСЂРѕРіСЂР°РјРё
 
     QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device) {
         QueueFamilyIndices indices;
@@ -922,7 +922,7 @@ private:
         return extensions;
     }
 
-    // Перевірка чи доступні усі шари валідації
+    // РџРµСЂРµРІС–СЂРєР° С‡Рё РґРѕСЃС‚СѓРїРЅС– СѓСЃС– С€Р°СЂРё РІР°Р»С–РґР°С†С–С—
 
     bool checkValidationLayerSupport() {
         uint32_t layerCount;
@@ -967,7 +967,7 @@ private:
         return buffer;
     }
 
-    // Функція яка повіджомляє про результат валідації
+    // Р¤СѓРЅРєС†С–СЏ СЏРє РїРѕРІС–РґР¶РѕРјР»СЏС” РїСЂРѕ СЂРµР·СѓР»СЊС‚Р°С‚ РІР°Р»С–РґР°С†С–С—
 
     static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
         std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
@@ -976,7 +976,7 @@ private:
     }
 };
 
-// Метод який створює і відмальовує трикутник
+// РњРµС‚РѕРґ СЏРєРёР№ СЃС‚РІРѕСЂСЋС” С– РІС–РґРјР°Р»СЊРѕРІСѓС” С‚СЂРёРєСѓС‚РЅРёРє
 
 int main() {
     HelloTriangleApplication app;
