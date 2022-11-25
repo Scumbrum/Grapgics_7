@@ -1,9 +1,7 @@
 // Імпортуємро потрібна бібліотеки
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-
 #include <glm/glm.hpp>
-
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
@@ -87,10 +85,13 @@ struct SwapChainSupportDetails {
     std::vector<VkPresentModeKHR> presentModes;
 };
 
+// Структура для зберігання двних про верщинний шейдер
 
 struct Vertex {
     glm::vec2 pos;
     glm::vec3 color;
+
+    // Струтктура для передачі даних у вершинний шейдер
 
     static VkVertexInputBindingDescription getBindingDescription() {
         VkVertexInputBindingDescription bindingDescription{};
@@ -101,13 +102,19 @@ struct Vertex {
         return bindingDescription;
     }
 
+    // Cтруктура для отримання даних про атрибути вершини
+
     static std::array<VkVertexInputAttributeDescription, 2> getAttributeDescriptions() {
         std::array<VkVertexInputAttributeDescription, 2> attributeDescriptions{};
+
+        // Опис для отримання позиції
 
         attributeDescriptions[0].binding = 0;
         attributeDescriptions[0].location = 0;
         attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
         attributeDescriptions[0].offset = offsetof(Vertex, pos);
+
+        // опис для ортимання кольору
 
         attributeDescriptions[1].binding = 0;
         attributeDescriptions[1].location = 1;
@@ -117,6 +124,8 @@ struct Vertex {
         return attributeDescriptions;
     }
 };
+
+// Записуємо дані про вершини
 
 const std::vector<Vertex> vertices = {
     {{-0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}},
@@ -169,6 +178,8 @@ private:
     VkPipeline graphicsPipeline;
 
     VkCommandPool commandPool;
+
+    // Змінні для зберігання ресурсів для буфера
 
     VkBuffer vertexBuffer;
     VkDeviceMemory vertexBufferMemory;
@@ -732,6 +743,8 @@ private:
         }
     }
 
+    // Функція для копіювання даних в локальний буфер пристрою
+
     void createVertexBuffer() {
         VkDeviceSize bufferSize = sizeof(vertices[0]) * vertices.size();
 
@@ -752,6 +765,8 @@ private:
         vkFreeMemory(device, stagingBufferMemory, nullptr);
     }
 
+    // Процес копіювання даних індексів в локальний буфер пристрою
+
     void createIndexBuffer() {
         VkDeviceSize bufferSize = sizeof(indices[0]) * indices.size();
 
@@ -771,6 +786,8 @@ private:
         vkDestroyBuffer(device, stagingBuffer, nullptr);
         vkFreeMemory(device, stagingBufferMemory, nullptr);
     }
+
+    // Фкнкція для створенння та заповнення буфера
 
     void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory) {
         VkBufferCreateInfo bufferInfo{};
@@ -797,6 +814,8 @@ private:
 
         vkBindBufferMemory(device, buffer, bufferMemory, 0);
     }
+
+    // Функція для передачі даних з одного буферу в інший
 
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
         VkCommandBufferAllocateInfo allocInfo{};
@@ -830,6 +849,8 @@ private:
 
         vkFreeCommandBuffers(device, commandPool, 1, &commandBuffer);
     }
+
+    // Підбір типів памяті GPU, які відповідаю вимогам, що передаються у функцію
 
     uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
         VkPhysicalDeviceMemoryProperties memProperties;
